@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<title> SeriousGulden </title>
+<title> SeriousGulden - Doneer Gulden voor Serious Request </title>
     <link rel="stylesheet" type="text/css" href="demo.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
@@ -23,7 +23,6 @@
         },
         success: function(data){ 
 		$('.counter').append(data.balance);
-		
 		$('.counter').counterUp(
 		{
 			delay: 5 ,
@@ -47,7 +46,7 @@ function counter(){
 			<h1>SeriousGulden</h1>
 		</div>
 		<div class="container"> 
-			<h1>Er zijn al G<div id="sample_goal"><span class="counter"></span></div> opgehaald!</h1>
+			<h1>Er zijn al <img src="https://developer.gulden.com/images/branding/gblue32x32.png" style="margin-top:2px;"/>&nbsp;<div id="sample_goal"><span class="counter"></span></div> opgehaald!</h1>
 		</div>
 		<img src="qr.png" />
 		<p>
