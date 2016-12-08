@@ -1,0 +1,65 @@
+<html>
+
+<head>
+<title> SeriousGulden </title>
+    <link rel="stylesheet" type="text/css" href="demo.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+	<script src="jquery.counterup.min.js"></script>
+    <script type="text/javascript">
+       
+    function getdata()
+	{
+	var guldenaddress = 'GZcNd1FdkHwBAdyaCebMfWenTbACqdfDk9';
+    $.ajax({
+        url: "https://blockchain.gulden.com/api/addr/" + guldenaddress +"/",
+        type: 'GET',
+        async: false,
+        cache: false,
+        timeout: 30000,
+		dataType: "jsonp",
+        error: function(){
+            return true;
+        },
+        success: function(data){ 
+		$('.counter').append(data.balance);
+		
+		$('.counter').counterUp(
+		{
+			delay: 5 ,
+			time: 1000
+		});
+		
+		
+        }
+    });
+};
+function counter(){
+}
+    </script>
+</head>
+
+<body  onload="getdata()">
+    <div id="header">
+	</div>
+	<div class="content">
+		<div class="container">
+			<h1>SeriousGulden</h1>
+		</div>
+		<div class="container"> 
+			<h1>Er zijn al G<div id="sample_goal"><span class="counter"></span></div> opgehaald!</h1>
+		</div>
+		<img src="qr.png" />
+		<p>
+				Deze webpagina is speciaal gemaakt voor Serious Request!
+			</p>
+			<p>
+				U kunt hier met uw guldens doneren!
+			</p>
+
+	</div>
+</body>
+
+
+
+</html>
