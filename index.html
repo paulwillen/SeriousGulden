@@ -2,15 +2,18 @@
 
 <head>
 <title> SeriousGulden - Doneer Gulden voor Serious Request </title>
-    <link rel="stylesheet" type="text/css" href="demo.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-	<script src="jquery.counterup.min.js"></script>
-    <script type="text/javascript">
+   <link rel="stylesheet" type="text/css" href="http://gulden.cbtoo.nl/wp-content/plugins/nlg/demo.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.min.js"></script> 
+<script type="text/javascript" src="http://seriousgulden.nl/wp-content/uploads/jquery.counterup2.0.5.js"></script>
+<script type="text/javascript">
        
+	var oldbalance = 0;
+	var newbalance = 0;
     function getdata()
 	{
-	var guldenaddress = 'GZcNd1FdkHwBAdyaCebMfWenTbACqdfDk9';
+	var guldenaddress = 'GMEpjpcXsk3bgGipSLsQEJ6jdC24fM3tdV';
+	
     $.ajax({
         url: "https://blockchain.gulden.com/api/addr/" + guldenaddress +"/",
         type: 'GET',
@@ -22,19 +25,89 @@
             return true;
         },
         success: function(data){ 
-		$('.counter').append(data.balance);
-		$('.counter').counterUp(
-		{
-			delay: 5 ,
-			time: 1000
-		});
+		
+		if(data.balance +data.unconfirmedBalance > 0){
+			if(oldbalance == 0 && newbalance == 0){
+				newbalance = data.balance + data.unconfirmedBalance
+				$('.counter')[0].innerHTML = '';
+				$('.counter').append(newbalance.toFixed(2));
+				$('.counter').counterUp(
+				{
+					delay: 5 ,
+					time: 1000
+				});				
+			}
+			else{
+				if((data.balance + data.unconfirmedBalance) != newbalance){
+				oldbalance = newbalance;
+				newbalance = data.balance + data.unconfirmedBalance;
+				$('.counter')[0].innerHTML = '';
+				$('.counter').append(newbalance.toFixed(2));
+				$('.counter').counterUp(
+				{
+					delay: 5 ,
+					time: 1000
+				});
+						}
+					}
+				
+				}
+
 		
 		
         }
     });
 };
-function counter(){
-}
+
+var timeout = setInterval(getdata, 5000);
+
+
+
+// Click on button to scroll down the page.
+
+$('document').ready(function(){
+getdata(); 
+var buttonContinue = $('a.button-continue');
+ buttonContinue.click(function(){
+   var scrollToPosition = $('#secondsection').offset().top;
+   $('html, body').animate({
+     scrollTop: scrollToPosition
+   }, 500);
+ });
+
+
+});
+
+
+
+    </script>
+<style>
+a.button-continue {
+cursor: pointer;
+   position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 4%;
+   display: block;
+   margin: 0 auto;
+   width: 55px;
+   height: 55px;
+   background-image: url(http://seriousgulden.nl/wp-content/uploads/home-banners-continue.png);
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-color: #0097dd ;
+   z-index: 9999;
+   border-radius: 100%;
+   -o-border-radius: 100%;
+   -moz-border-radius: 100%;
+   -webkit-border-radius: 100%;
+   transform: translateY(-4%);
+   animation: updown 0.5s infinite;
+   -o-animation: updown 0.5s infinite;
+   -moz-animation: updown 0.5s infinite;
+   -webkit-animation: updown 0.5s infinite;
+   animation-direction: alternate;
+</style>
     </script>
 </head>
 
@@ -48,7 +121,8 @@ function counter(){
 		<div class="container"> 
 			<h1>Er zijn al <img src="https://developer.gulden.com/images/branding/gblue32x32.png" style="margin-top:2px;"/>&nbsp;<div id="sample_goal"><span class="counter"></span></div> opgehaald!</h1>
 		</div>
-		<img src="qr.png" />
+		<img src="qr.png" /><br />
+		Gulden adres: <a href="Gulden:GMEpjpcXsk3bgGipSLsQEJ6jdC24fM3tdV">GMEpjpcXsk3bgGipSLsQEJ6jdC24fM3tdV</a> <br />
 		<p>
 				Deze webpagina is speciaal gemaakt voor Serious Request!
 			</p>
